@@ -1,16 +1,18 @@
+PROJECT_NAME=project_name
+HERE:=$(shell pwd)
+
 .PHONY: all depends build test clean
 
-all: depends build
+all: build
 
-depends: src/github.com/nobonobo/unqlitego
-	cd src/github.com/nobonobo/unqlitego; make
-	cd src/github.com/nobonobo/unqlitego; go install
+depends: src/github.com/nobonobo/unqlitego/Makefile
+	GOPATH=$(HERE) make -C src/github.com/nobonobo/unqlitego
 
 src/github.com/nobonobo/unqlitego:
-	go get -d github.com/nobonobo/unqlitego
+	GOPATH=$(HERE) go get -d github.com/nobonobo/unqlitego
 
 build: depends 
-	go build
+	GOPATH=$(HERE) go build
 
 clean:
 	-rm -rf src/github.com
@@ -18,4 +20,4 @@ clean:
 	-rm -f go-ex-project
 
 test:
-	go test ./
+	GOPATH=$(HERE) go test src/$(PROJECT_NAME)

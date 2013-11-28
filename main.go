@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ProjectName/pkg3"
+	"project-name/pkg3"
 )
 
 func main() {
